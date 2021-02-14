@@ -1,0 +1,8 @@
+cd C:\Program Files (x86)\IntelSWTools\openvino_2020.4.287\bin
+setupvars.bat
+
+cd C:\Program Files (x86)\IntelSWTools\openvino_2020.4.287\deployment_tools\model_optimizer
+python mo_mxnet.py --input_model model-0000.params --input_shape [1,3,112,112] --output_dir FP16_ga --data_type FP16 --scale 0.9993 --mean_values [127.5,127.5,127.5]
+
+cd C:\Program Files (x86)\IntelSWTools\openvino_2020.4.287\deployment_tools\inference_engine\bin\intel64\Release
+myriad_compile -m  model-0000.xml -o gamodel.blob -ip U8 -VPU_NUMBER_OF_SHAVES 4 -VPU_NUMBER_OF_CMX_SLICES 4
