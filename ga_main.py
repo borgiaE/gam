@@ -84,7 +84,7 @@ def main():
     fr_nn_xout.setStreamName("fr_out")
     fr_nn.out.link(fr_nn_xout.input)
 
-    device = depthai.Device(pipeline)
+    device = depthai.Device(pipeline, "depthai-usb2.cmd")
     device.startPipeline()
 
     cam_out = device.getOutputQueue("cam_out")
