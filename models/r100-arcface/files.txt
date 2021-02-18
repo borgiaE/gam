@@ -1,1 +1,1 @@
-https://drive.google.com/drive/folders/1tI2H5YI9mxeFdLPIV4rnTo1MgYpMKiVG?usp=sharing
+https://github.com/luxonis/depthai-python/issues/116
