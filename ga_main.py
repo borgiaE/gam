@@ -74,15 +74,15 @@ def main():
     land_nn.out.link(land_nn_xout.input)
 
     print("Creating GA Detection Neural Network...")
-    ga_nn = pipeline.createNeuralNetwork()
-    ga_nn.setBlobPath(str(Path("./models/gamodel-r50/gamodel.blob").resolve().absolute()))
+    fr_nn = pipeline.createNeuralNetwork()
+    fr_nn.setBlobPath(str(Path("./models/r100-arcface/face_rec.blob").resolve().absolute()))
 
-    ga_nn_xin = pipeline.createXLinkIn()
-    ga_nn_xin.setStreamName("ga_in")
-    ga_nn_xin.out.link(ga_nn.input)
-    ga_nn_xout = pipeline.createXLinkOut()
-    ga_nn_xout.setStreamName("ga_out")
-    ga_nn.out.link(ga_nn_xout.input)
+    fr_nn_xin = pipeline.createXLinkIn()
+    fr_nn_xin.setStreamName("fr_in")
+    fr_nn_xin.out.link(fr_nn.input)
+    fr_nn_xout = pipeline.createXLinkOut()
+    fr_nn_xout.setStreamName("fr_out")
+    fr_nn.out.link(fr_nn_xout.input)
 
     device = depthai.Device(pipeline)
     device.startPipeline()
@@ -92,8 +92,8 @@ def main():
     landmark_in = device.getInputQueue("landmark_in")
     landmark_nn = device.getOutputQueue(name="landmark_nn", maxSize=1, blocking=False)
 
-    ga_nn_in = device.getInputQueue("ga_in")
-    ga_nn_out = device.getOutputQueue(name="ga_out", maxSize=1, blocking=False)
+    fr_nn_in = device.getInputQueue("fr_in")
+    fr_nn_out = device.getOutputQueue(name="fr_out", maxSize=1, blocking=False)
 
     while True:
         n_frame = cam_out.tryGet()
